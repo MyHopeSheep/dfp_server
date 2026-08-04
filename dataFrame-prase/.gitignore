@@ -1,0 +1,8 @@
+/target/
+/.idea/
+/docs/
+
+
+/src/test/java
+
+*.iml
