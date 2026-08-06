@@ -142,11 +142,11 @@ public record CliOptions(
                   --output <路径>                输出 Excel 路径；默认使用输入目录下的 data_praseResult
                                                  同名文件已存在时追加 (1)、(2) 等编号
                   --charset <字符集>             默认 GBK
-                  --bit-period-us <数值>         默认 416.67
-                  --phase-step-us <数值>         默认 bit 周期 / 16
+                  --bit-period-us <数值>         兼容旧脚本；局部周期估算模式不使用
+                  --phase-step-us <数值>         兼容旧脚本；实际步长固定为 T_est / 16
                   --idle-threshold-ms <数值>     默认 40
                   --idle-level <0|1>             默认 0
-                  --dedup-tolerance-us <数值>    默认 bit 周期 / 2
+                  --dedup-tolerance-us <数值>    兼容旧脚本；实际容差为较大 T_est / 2
                   --level-mapping <模式>         direct 或 inverted，默认 inverted
                   --help                         显示帮助
                 """;

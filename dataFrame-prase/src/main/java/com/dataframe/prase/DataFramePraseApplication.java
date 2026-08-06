@@ -4,6 +4,7 @@ import com.dataframe.prase.cli.CliOptions;
 import com.dataframe.prase.model.BoundaryFragment;
 import com.dataframe.prase.model.ParseOutcome;
 import com.dataframe.prase.service.ParseService;
+import com.dataframe.prase.signal.LocalPeriodEstimator;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -50,18 +51,22 @@ public final class DataFramePraseApplication {
         output.println("候选区段数量: " + outcome.segmentCount());
         output.println("有效帧数量: " + outcome.validFrameCount());
         output.println("非有效帧数量: " + outcome.invalidFrameCount());
-        output.println("文件边界残片数量: " + outcome.boundaryFragments().size());
+        output.println("未识别/边界诊断数量: " + outcome.boundaryFragments().size());
         for (int index = 0; index < outcome.boundaryFragments().size(); index++) {
             BoundaryFragment fragment = outcome.boundaryFragments().get(index);
             output.printf(
-                    "  残片 %d: %s s - %s s, %s%n",
+                    "  诊断 %d: %s s - %s s, %s%n",
                     index + 1,
                     fragment.startSeconds().toPlainString(),
                     fragment.endSeconds().toPlainString(),
                     fragment.reason());
         }
-        output.println("bit 周期[us]: " + outcome.bitPeriodUs().toPlainString());
-        output.println("相位步长[us]: " + outcome.phaseStepUs().toPlainString());
+        output.println("合法单bit脉宽窗口[us]: "
+                + LocalPeriodEstimator.MIN_SINGLE_BIT_PULSE_US.toPlainString()
+                + " - " + LocalPeriodEstimator.MAX_SINGLE_BIT_PULSE_US.toPlainString());
+        output.println("周期估计方式: 同步AA局部拟合，确认AA 2D D4后细化拟合");
+        output.println("采样相位步长: T_est / 16");
+        output.println("同一物理帧去重容差: 两个候选中较大T_est的1/2");
         output.println("空闲阈值[ms]: " + outcome.idleThresholdMs().toPlainString());
         output.println("空闲电平: " + outcome.idleLevel());
         output.println("电平映射: " + outcome.levelMapping().description());

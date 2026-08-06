@@ -33,25 +33,31 @@ public final class FrameRules {
             throw new IllegalArgumentException("遥控器 ID 必须是 3 个字节");
         }
 
+        boolean legacySyncInclusive = recoveredBytes.size() >= 3
+                && recoveredBytes.subList(0, 3).equals(List.of(0xAA, 0x2D, 0xD4));
+        List<Integer> formalBytes = legacySyncInclusive
+                ? recoveredBytes.subList(1, recoveredBytes.size())
+                : recoveredBytes;
+
         List<String> failures = new ArrayList<>();
-        boolean complete = recoveredBytes.size() >= 14;
+        boolean complete = formalBytes.size() >= 13;
         if (!complete) {
-            failures.add("核心帧数据截断");
+            failures.add(legacySyncInclusive ? "核心帧数据截断" : "正式帧数据截断");
         }
 
-        if (complete && !recoveredBytes.subList(0, 3).equals(List.of(0xAA, 0x2D, 0xD4))) {
+        if (complete && !formalBytes.subList(0, 2).equals(List.of(0x2D, 0xD4))) {
             failures.add("帧头不匹配");
         }
-        if (complete && !recoveredBytes.subList(7, 10).equals(expectedRemoteId)) {
+        if (complete && !formalBytes.subList(6, 9).equals(expectedRemoteId)) {
             failures.add("遥控器 ID 不匹配");
         }
 
-        Integer command = recoveredBytes.size() > 11 ? recoveredBytes.get(11) : null;
+        Integer command = formalBytes.size() > 10 ? formalBytes.get(10) : null;
         CommandInfo commandInfo = command == null ? UNKNOWN_COMMAND : commandInfo(command);
         if (complete && !COMMANDS.containsKey(command)) {
             failures.add("命令字节未知");
         }
-        if (complete && (recoveredBytes.get(12) != 0xAA || recoveredBytes.get(13) != 0xAA)) {
+        if (complete && (formalBytes.get(11) != 0xAA || formalBytes.get(12) != 0xAA)) {
             failures.add("尾帧不匹配");
         }
         return new ValidationResult(complete, failures.isEmpty(), failures, commandInfo);

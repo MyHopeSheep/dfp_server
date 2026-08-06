@@ -13,7 +13,6 @@ import com.dataframe.prase.protocol.FrameDeduplicator;
 import com.dataframe.prase.protocol.FrameRules;
 import com.dataframe.prase.report.ExcelResultWriter;
 import com.dataframe.prase.signal.ActivitySegmenter;
-import com.dataframe.prase.signal.FixedPeriodSampler;
 import com.dataframe.prase.signal.IntervalBuilder;
 
 import java.io.IOException;
@@ -31,7 +30,6 @@ public final class ParseService {
     private final CsvEdgeReader csvEdgeReader = new CsvEdgeReader();
     private final IntervalBuilder intervalBuilder = new IntervalBuilder();
     private final ActivitySegmenter activitySegmenter = new ActivitySegmenter();
-    private final FixedPeriodSampler fixedPeriodSampler = new FixedPeriodSampler();
     private final FrameDecoder frameDecoder = new FrameDecoder(new FrameRules());
     private final FrameDeduplicator frameDeduplicator = new FrameDeduplicator();
     private final ExcelResultWriter excelResultWriter = new ExcelResultWriter();
@@ -54,16 +52,16 @@ public final class ParseService {
                 .segment(intervals, options.idleLevel(), idleThresholdSeconds)
                 .segments();
 
-        List<FrameResult> frameCandidates = new ArrayList<>();
+        List<FrameResult> frameCandidates = frameDecoder.decodeEstimated(
+                edges, options.remoteId(), options.levelMapping());
+        List<FrameResult> frames = frameDeduplicator.deduplicateEstimated(frameCandidates);
         List<BoundaryFragment> boundaryFragments = new ArrayList<>();
         for (ActivitySegment segment : segments) {
-            SegmentDecodeResult result = decodeSegment(segment, options);
-            frameCandidates.addAll(result.frames());
-            boundaryFragments.addAll(result.boundaryFragments());
+            List<FrameResult> relatedFrames = frames.stream()
+                    .filter(frame -> isFrameInSegment(frame, segment))
+                    .toList();
+            boundaryFragments.addAll(uncoveredFragments(segment, relatedFrames));
         }
-
-        List<FrameResult> frames = frameDeduplicator.deduplicate(
-                frameCandidates, options.dedupToleranceUs());
         ParseOutcome outcome = new ParseOutcome(
                 options.input(),
                 options.output(),
@@ -72,8 +70,6 @@ public final class ParseService {
                 frames,
                 boundaryFragments,
                 options.remoteId(),
-                options.bitPeriodUs(),
-                options.phaseStepUs(),
                 options.idleThresholdMs(),
                 options.idleLevel(),
                 options.levelMapping(),
@@ -82,41 +78,66 @@ public final class ParseService {
         return outcome;
     }
 
-    private SegmentDecodeResult decodeSegment(ActivitySegment segment, CliOptions options) {
-        List<FixedPeriodSampler.SampledBits> sampledPhases = fixedPeriodSampler.sample(
-                segment,
-                options.bitPeriodUs(),
-                options.phaseStepUs(),
-                options.levelMapping());
-        List<FrameResult> candidates = new ArrayList<>();
-        for (FixedPeriodSampler.SampledBits sampled : sampledPhases) {
-            candidates.addAll(frameDecoder.decode(segment, sampled, options.remoteId()));
-        }
-
-        List<FrameResult> frames = frameDeduplicator.deduplicate(
-                candidates, options.dedupToleranceUs());
-        if (frames.isEmpty() && !segment.isFileBoundarySegment()) {
-            frames = List.of(frameDecoder.unmatched(segment, bestAuditSample(sampledPhases)));
-        }
-        List<BoundaryFragment> fragments = frameDecoder.boundaryFragments(segment, frames);
-        return new SegmentDecodeResult(frames, fragments);
+    private boolean isFrameInSegment(FrameResult frame, ActivitySegment segment) {
+        BigDecimal preludeTime = frame.audit().preludeStartSeconds() == null
+                ? frame.startSeconds()
+                : frame.audit().preludeStartSeconds();
+        return preludeTime.compareTo(segment.startSeconds()) >= 0
+                && preludeTime.compareTo(segment.endSeconds()) < 0;
     }
 
-    private FixedPeriodSampler.SampledBits bestAuditSample(
-            List<FixedPeriodSampler.SampledBits> sampledPhases) {
-        return sampledPhases.stream()
-                .max(Comparator.comparingInt((FixedPeriodSampler.SampledBits sample) -> sample.bits().size())
-                        .thenComparing(FixedPeriodSampler.SampledBits::phaseUs, Comparator.reverseOrder()))
-                .orElseThrow(() -> new IllegalStateException("候选区段没有可用采样相位"));
+    private List<BoundaryFragment> uncoveredFragments(
+            ActivitySegment segment,
+            List<FrameResult> relatedFrames) {
+        List<FrameResult> orderedFrames = relatedFrames.stream()
+                .sorted(Comparator.comparing(this::coverageStart))
+                .toList();
+        List<BoundaryFragment> fragments = new ArrayList<>();
+        BigDecimal cursor = segment.startSeconds();
+        for (FrameResult frame : orderedFrames) {
+            BigDecimal frameStart = coverageStart(frame).max(segment.startSeconds());
+            BigDecimal frameEnd = coverageEnd(frame).min(segment.endSeconds());
+            if (cursor.compareTo(frameStart) < 0) {
+                fragments.add(new BoundaryFragment(
+                        cursor, frameStart, fragmentReason(segment, cursor, frameStart)));
+            }
+            if (frameEnd.compareTo(cursor) > 0) {
+                cursor = frameEnd;
+            }
+        }
+        if (cursor.compareTo(segment.endSeconds()) < 0) {
+            fragments.add(new BoundaryFragment(
+                    cursor,
+                    segment.endSeconds(),
+                    fragmentReason(segment, cursor, segment.endSeconds())));
+        }
+        return List.copyOf(fragments);
     }
 
-    private record SegmentDecodeResult(
-            List<FrameResult> frames,
-            List<BoundaryFragment> boundaryFragments) {
+    private BigDecimal coverageStart(FrameResult frame) {
+        return frame.audit().preludeStartSeconds() == null
+                ? frame.startSeconds()
+                : frame.audit().preludeStartSeconds();
+    }
 
-        private SegmentDecodeResult {
-            frames = List.copyOf(frames);
-            boundaryFragments = List.copyOf(boundaryFragments);
+    private BigDecimal coverageEnd(FrameResult frame) {
+        return frame.audit().formalEndSeconds() == null
+                ? frame.endSeconds()
+                : frame.audit().formalEndSeconds();
+    }
+
+    private String fragmentReason(
+            ActivitySegment segment,
+            BigDecimal startSeconds,
+            BigDecimal endSeconds) {
+        if (!segment.leftBoundaryKnown()
+                && startSeconds.compareTo(segment.startSeconds()) == 0) {
+            return "文件开头未识别数据";
         }
+        if (!segment.rightBoundaryKnown()
+                && endSeconds.compareTo(segment.endSeconds()) == 0) {
+            return "文件结尾未识别数据";
+        }
+        return "未识别数据范围";
     }
 }

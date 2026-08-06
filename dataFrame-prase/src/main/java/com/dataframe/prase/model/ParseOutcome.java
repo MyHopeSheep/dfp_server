@@ -16,8 +16,6 @@ public record ParseOutcome(
         List<FrameResult> frames,
         List<BoundaryFragment> boundaryFragments,
         List<Integer> remoteId,
-        BigDecimal bitPeriodUs,
-        BigDecimal phaseStepUs,
         BigDecimal idleThresholdMs,
         int idleLevel,
         LevelMapping levelMapping,
@@ -29,8 +27,6 @@ public record ParseOutcome(
         Objects.requireNonNull(frames, "frames");
         Objects.requireNonNull(boundaryFragments, "boundaryFragments");
         Objects.requireNonNull(remoteId, "remoteId");
-        Objects.requireNonNull(bitPeriodUs, "bitPeriodUs");
-        Objects.requireNonNull(phaseStepUs, "phaseStepUs");
         Objects.requireNonNull(idleThresholdMs, "idleThresholdMs");
         Objects.requireNonNull(levelMapping, "levelMapping");
         Objects.requireNonNull(processedAt, "processedAt");
@@ -46,6 +42,37 @@ public record ParseOutcome(
         frames = List.copyOf(frames);
         boundaryFragments = List.copyOf(boundaryFragments);
         remoteId = List.copyOf(remoteId);
+    }
+
+    @Deprecated
+    public ParseOutcome(
+            Path input,
+            Path output,
+            int edgeCount,
+            int segmentCount,
+            List<FrameResult> frames,
+            List<BoundaryFragment> boundaryFragments,
+            List<Integer> remoteId,
+            BigDecimal ignoredBitPeriodUs,
+            BigDecimal ignoredPhaseStepUs,
+            BigDecimal idleThresholdMs,
+            int idleLevel,
+            LevelMapping levelMapping,
+            LocalDateTime processedAt) {
+        this(
+                input,
+                output,
+                edgeCount,
+                segmentCount,
+                frames,
+                boundaryFragments,
+                remoteId,
+                idleThresholdMs,
+                idleLevel,
+                levelMapping,
+                processedAt);
+        Objects.requireNonNull(ignoredBitPeriodUs, "ignoredBitPeriodUs");
+        Objects.requireNonNull(ignoredPhaseStepUs, "ignoredPhaseStepUs");
     }
 
     public long validFrameCount() {
