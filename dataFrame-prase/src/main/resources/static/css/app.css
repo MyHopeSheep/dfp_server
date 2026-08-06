@@ -1,0 +1,209 @@
+:root {
+    color: #1f2937;
+    background: #f4f7fb;
+    font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+}
+
+.page-shell {
+    width: min(720px, calc(100% - 32px));
+    margin: 40px auto;
+}
+
+.page-header {
+    margin-bottom: 20px;
+}
+
+h1,
+h2,
+p {
+    margin: 0;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+.service-status,
+.step-summary,
+.feedback {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.service-status--checking {
+    color: #475569;
+}
+
+.service-status--ready {
+    color: #15803d;
+}
+
+.service-status--error,
+.feedback--error {
+    color: #b91c1c;
+}
+
+.step-card {
+    margin-top: 14px;
+    padding: 20px;
+    border: 1px solid #d9e2ef;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgb(15 23 42 / 4%);
+}
+
+.step-card--action {
+    border-color: #c7d7f4;
+}
+
+.step-card__heading {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.step-mark {
+    display: inline-grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.step-mark--complete {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.step-summary {
+    color: #64748b;
+}
+
+.step-card__controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+}
+
+select,
+.button {
+    min-height: 40px;
+    border-radius: 6px;
+    font: inherit;
+}
+
+select {
+    min-width: 0;
+    flex: 1 1 auto;
+    padding: 0 12px;
+    border: 1px solid #94a3b8;
+    background: #ffffff;
+}
+
+.button {
+    padding: 0 16px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.button--primary {
+    width: 100%;
+    margin-top: 16px;
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.button--secondary {
+    border-color: #94a3b8;
+    background: #ffffff;
+    color: #1e3a5f;
+}
+
+.button:disabled,
+select:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+#csv-file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.button--file {
+    display: inline-flex;
+    align-items: center;
+}
+
+.feedback {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 6px;
+}
+
+.feedback--success {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.feedback--warning {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.feedback--error {
+    background: #fef2f2;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+@media (max-width: 540px) {
+    .page-shell {
+        width: min(100% - 24px, 720px);
+        margin: 24px auto;
+    }
+
+    .step-card__controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    select,
+    .button--secondary {
+        width: 100%;
+    }
+}

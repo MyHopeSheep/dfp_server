@@ -1,89 +1,98 @@
 # dataFrame-prase
 
-`dataFrame-prase` 是一个 Java 17 命令行程序，用于从 KingstVIS 导出的稀疏边沿 CSV 中局部估算每帧 bit 周期，识别自定义协议正式帧，并生成带拟合和帧尾恢复审计信息的 Excel 结果。
+`dataFrame-prase` 是一个 Java 17 本地 Web 工具：浏览器或 HTTP 客户端上传 KingstVIS 导出的稀疏边沿 CSV，后端按选中的遥控器配置完成信号解析，并直接下载 Excel 结果。
 
-## 环境要求
+当前阶段只提供后端接口和 Windows 启动脚本，不包含静态网页，也不会自动打开浏览器。原命令行参数和命令行输出方式不再维护。
 
-- JDK 17
-- Maven 3.8 或更高版本
-- 输入 CSV 默认使用 GBK；其他编码通过 `--charset` 指定
+## 构建和测试
 
-当前电脑可在 PowerShell 中使用以下 JDK 17：
+必须使用 JDK 17。在 PowerShell 中执行：
 
 ```powershell
 $env:JAVA_HOME = 'D:\software\jdK\jdk-17.0.15'
 $env:Path = "$env:JAVA_HOME\bin;$env:Path"
-java -version
-mvn -version
+mvn "-DargLine=-Djava.io.tmpdir=D:\IdeaProgram\DFP\3-server\dataFrame-prase\.codex-tmp\junit" clean test
+mvn "-DskipTests" clean package
 ```
 
-两个版本命令都应显示 Java 17，不能使用系统默认的 Java 8 构建本工程。
-
-## 构建和测试
-
-在 `dataFrame-prase` 目录执行：
-
-```powershell
-mvn clean test
-mvn clean package
-```
-
-只执行指定测试类时，带点号或其他 `-D` 参数统一加引号：
-
-```powershell
-mvn "-Dtest=CliOptionsTest" test
-```
-
-成功打包后生成：
+可执行 JAR 生成在：
 
 ```text
 target\dataFrame-prase.jar
 ```
 
-## 命令行使用
+## 交付目录和启动
 
-查看帮助：
-
-```powershell
-& "$env:JAVA_HOME\bin\java.exe" -jar '.\target\dataFrame-prase.jar' --help
+```text
+5-again/
+├─ run.bat
+├─ dataFrame-prase.jar
+├─ jdk-17.0.15/
+│  └─ bin/java.exe
+├─ config/
+│  └─ remote-configs.json
+└─ logs/                    首次启动时自动创建
 ```
 
-处理一份样例 CSV：
+双击 `run.bat` 启动。脚本只使用同目录下的 JDK 17，并以前台方式运行 JAR；关闭黑窗口后服务随 Java 进程停止。启动异常时脚本会暂停并保留错误信息。
 
-未指定 `--output` 时，结果写入 CSV 所在目录下的 `data_praseResult`；目录不存在会自动创建，同名文件会追加 `(1)`、`(2)` 编号。
+服务仅监听 `127.0.0.1`，依次尝试端口 `8080`、`8081`、`8082`。只有端口占用才会换端口，其他启动异常会直接退出。
 
-```powershell
-& "$env:JAVA_HOME\bin\java.exe" -jar '.\target\dataFrame-prase.jar' `
-  --input 'D:\IdeaProgram\DFP\2-data\2026-08-02_01-26-27通道1停按第1下3帧数据.csv' `
-  --remote-id 'B0 42 87'
+## 遥控器配置
+
+外部配置文件固定为 `config/remote-configs.json`，必须使用 UTF-8 编码：
+
+```json
+{
+  "configs": [
+    {
+      "key": "remote-b04287",
+      "name": "默认遥控器（B0 42 87）",
+      "remoteId": "B0 42 87",
+      "charset": "GBK",
+      "idleThresholdMs": 40,
+      "idleLevel": 0,
+      "levelMapping": "inverted"
+    }
+  ]
+}
 ```
 
-指定全部主要参数：
+每套遥控器都有唯一 `key` 和前端显示用 `name`。`remoteId` 必须是三个十六进制字节；`idleThresholdMs` 必须大于 0；`idleLevel` 只能是 0 或 1；`levelMapping` 只能是 `direct` 或 `inverted`。
 
-```powershell
-& "$env:JAVA_HOME\bin\java.exe" -jar '.\target\dataFrame-prase.jar' `
-  --input 'D:\IdeaProgram\DFP\2-data\2026-08-02_01-26-27通道1停按第1下3帧数据.csv' `
-  --remote-id 'B0 42 87' `
-  --output 'D:\IdeaProgram\DFP\2-data\data_praseResult\第1下-解析结果.xlsx' `
-  --charset 'GBK' `
-  --idle-threshold-ms '40' `
-  --idle-level '0' `
-  --level-mapping 'inverted'
+`/dfp/configs` 和 `/dfp/csvParse` 每次调用都会重新读取并校验该 JSON，不使用缓存。保存修改后，下一个接口请求立即生效，无需重启 `run.bat`。
+
+## 后端接口
+
+### 健康检查
+
+```text
+GET /dfp/health
 ```
 
-帧解析不使用固定 `416.67 us` 作为采样周期或失败兜底。程序在每个同步候选附近，从 `332.8～499.2 us` 的连续合法 `1T` 脉宽中拟合初始周期，确认 `AA 2D D4` 后按已知跳变位置细化，并以 `T_est / 16` 搜索采样相位。旧的 `--bit-period-us`、`--phase-step-us` 和 `--dedup-tolerance-us` 参数仅为兼容已有脚本而保留，不参与新解析决策。
+返回 `status`、实际监听 `port` 和程序 `version`，且不读取遥控器 JSON。
 
-## 人工验收
+### 配置列表
 
-1. 控制台应显示输入路径、边沿数、候选区段数、有效帧数、非有效帧数、边界残片及实际参数。
-2. 输出文件应包含且只包含 `解析结果`、`处理摘要` 两个工作表。
-3. `解析结果` 应冻结前两行，数据从第 3 行开始。
-4. 协议区只显示 `前导12`、正式帧 13 字节、遥控器通道和动作，不生成 `前导1～11`。
-5. 审计区应区分原始跳变时间和估算逻辑时间，并包含初始/细化拟合、直接/最终恢复 bit 数、帧尾恢复状态、bit 串和正式帧字节串。
-6. 非有效帧必须有失败原因；文件边界残片只计入摘要，不计入非有效帧数量。
-7. `电平映射` 应显示反相映射；现有三份样例使用 `CSV 0 -> 逻辑 1、CSV 1 -> 逻辑 0`。
-8. 三份样例在默认空闲配置下的静态候选区段数应分别为 3、3、6；有效帧数量必须以实际恢复和校验结果为准，不能根据文件名断言。
+```text
+GET /dfp/configs
+```
 
-现行周期估计、帧恢复和 Excel 导出规则以 `D:\IdeaProgram\DFP\1-document\3_帧解析周期估计与Excel导出方案总结.md` 为准；`自定义协议CSV有效帧识别器-MVP需求文档.md` 和 `有效帧识别规则说明.md` 仅作为历史基线参考。
+只返回每套配置的 `key` 和 `name`，完整解析参数不会返回前端。
 
-逐项实现状态和仍需运行的验收项见 `docs/acceptance-audit.md`。
+### CSV 解析与 Excel 下载
+
+```text
+POST /dfp/csvParse
+Content-Type: multipart/form-data
+file=<CSV 文件>
+configKey=<配置 key>
+```
+
+成功响应是标准 XLSX 下载，文件名为 `原CSV文件名-解析结果.xlsx`；失败响应是包含 `code` 和 `message` 的 JSON。单个上传文件上限是 20MB，单次请求上限是 25MB。输入 CSV 和生成的 Excel 只存在于每个请求的独立系统临时目录中，响应内容读取完成后即清理，不在服务端长期保存。
+
+日志同时显示在启动窗口并写入 `logs/dataFrame-prase.log`。单个日志文件最大 10MB，最多保留 5 个历史文件，日志不记录 CSV 原始内容。
+
+## 当前边界
+
+静态 HTML、配置下拉框、浏览器 `localStorage` 和启动后自动打开页面属于第二阶段，本阶段不实现。

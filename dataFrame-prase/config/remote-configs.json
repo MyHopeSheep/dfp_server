@@ -1,0 +1,13 @@
+{
+  "configs": [
+    {
+      "key": "remote-b04287",
+      "name": "NRZ-L 类遥控器（B0 42 87）",
+      "remoteId": "B0 42 87",
+      "charset": "GBK",
+      "idleThresholdMs": 40,
+      "idleLevel": 0,
+      "levelMapping": "inverted"
+    }
+  ]
+}

@@ -1,0 +1,669 @@
+2026-08-06 16:19:59.479 INFO  [main] c.d.p.DataFramePraseApplicationTest - Starting DataFramePraseApplicationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 6420 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:19:59.483 INFO  [main] c.d.p.DataFramePraseApplicationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:20:00.309 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:20:00.526 INFO  [main] c.d.p.DataFramePraseApplicationTest - Started DataFramePraseApplicationTest in 1.375 seconds (process running for 10.743)
+2026-08-06 16:20:03.358 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=示例.CSV, configKey=remote-1, elapsedMs=52
+2026-08-06 16:20:03.440 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=first.csv, configKey=remote-1, elapsedMs=39
+2026-08-06 16:20:03.462 WARN  [main] c.d.prase.web.CsvParseWebService - CSV 解析失败: fileName=invalid.csv, configKey=remote-1, elapsedMs=5, failureType=DfpException
+2026-08-06 16:20:03.783 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:03.783 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:03.783 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.036 ERROR [main] c.d.prase.web.GlobalExceptionHandler - 服务处理发生未预期异常
+java.lang.RuntimeException: 数据库密码等内部细节
+	at com.dataframe.prase.web.CsvParseWebService.parse(CsvParseWebService.java:48)
+	at com.dataframe.prase.web.CsvParseController.parse(CsvParseController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:165)
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132)
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:201)
+	at com.dataframe.prase.web.DfpControllerTest.performParse(DfpControllerTest.java:168)
+	at com.dataframe.prase.web.DfpControllerTest.shouldHideUnexpectedExceptionDetails(DfpControllerTest.java:157)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-08-06 16:20:04.213 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.213 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.213 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.234 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.234 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.234 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.263 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.263 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.263 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.267 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_NOT_FOUND
+2026-08-06 16:20:04.288 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.288 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.288 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.342 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.342 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.342 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.366 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.367 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.367 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.398 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.398 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.398 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.429 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:04.429 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:04.429 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:04.433 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_INVALID
+2026-08-06 16:20:04.550 INFO  [main] c.d.p.web.HomePageIntegrationTest - Starting HomePageIntegrationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 6420 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:20:04.554 INFO  [main] c.d.p.web.HomePageIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:20:04.970 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:20:05.088 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:05.088 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:05.088 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:05.108 INFO  [main] c.d.p.web.HomePageIntegrationTest - Started HomePageIntegrationTest in 0.625 seconds (process running for 15.325)
+2026-08-06 16:20:49.294 INFO  [main] c.d.p.DataFramePraseApplicationTest - Starting DataFramePraseApplicationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 23724 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:20:49.294 INFO  [main] c.d.p.DataFramePraseApplicationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:20:50.110 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:20:50.302 INFO  [main] c.d.p.DataFramePraseApplicationTest - Started DataFramePraseApplicationTest in 1.355 seconds (process running for 10.634)
+2026-08-06 16:20:52.928 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=示例.CSV, configKey=remote-1, elapsedMs=41
+2026-08-06 16:20:53.026 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=first.csv, configKey=remote-1, elapsedMs=50
+2026-08-06 16:20:53.049 WARN  [main] c.d.prase.web.CsvParseWebService - CSV 解析失败: fileName=invalid.csv, configKey=remote-1, elapsedMs=5, failureType=DfpException
+2026-08-06 16:20:53.453 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:53.453 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:53.453 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:53.706 ERROR [main] c.d.prase.web.GlobalExceptionHandler - 服务处理发生未预期异常
+java.lang.RuntimeException: 数据库密码等内部细节
+	at com.dataframe.prase.web.CsvParseWebService.parse(CsvParseWebService.java:48)
+	at com.dataframe.prase.web.CsvParseController.parse(CsvParseController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:165)
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132)
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:201)
+	at com.dataframe.prase.web.DfpControllerTest.performParse(DfpControllerTest.java:168)
+	at com.dataframe.prase.web.DfpControllerTest.shouldHideUnexpectedExceptionDetails(DfpControllerTest.java:157)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-08-06 16:20:53.881 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:53.881 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:53.881 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:53.917 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:53.917 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:53.917 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:53.938 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:53.938 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:53.938 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:53.942 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_NOT_FOUND
+2026-08-06 16:20:53.959 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:53.959 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:53.959 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.012 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:54.012 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:54.012 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.025 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:54.029 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:54.029 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.063 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:54.063 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:54.063 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.092 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:54.092 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:54.092 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.096 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_INVALID
+2026-08-06 16:20:54.210 INFO  [main] c.d.p.web.HomePageIntegrationTest - Starting HomePageIntegrationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 23724 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:20:54.214 INFO  [main] c.d.p.web.HomePageIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:20:54.663 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:20:54.759 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:20:54.759 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:20:54.759 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:20:54.775 INFO  [main] c.d.p.web.HomePageIntegrationTest - Started HomePageIntegrationTest in 0.634 seconds (process running for 15.105)
+2026-08-06 16:21:18.129 INFO  [main] c.d.p.DataFramePraseApplicationTest - Starting DataFramePraseApplicationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 24372 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:21:18.131 INFO  [main] c.d.p.DataFramePraseApplicationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:21:18.699 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:21:18.920 INFO  [main] c.d.p.DataFramePraseApplicationTest - Started DataFramePraseApplicationTest in 1.046 seconds (process running for 2.166)
+2026-08-06 16:21:21.420 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=示例.CSV, configKey=remote-1, elapsedMs=45
+2026-08-06 16:21:21.506 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=first.csv, configKey=remote-1, elapsedMs=49
+2026-08-06 16:21:21.530 WARN  [main] c.d.prase.web.CsvParseWebService - CSV 解析失败: fileName=invalid.csv, configKey=remote-1, elapsedMs=4, failureType=DfpException
+2026-08-06 16:21:21.807 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:21.807 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:21.807 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.037 ERROR [main] c.d.prase.web.GlobalExceptionHandler - 服务处理发生未预期异常
+java.lang.RuntimeException: 数据库密码等内部细节
+	at com.dataframe.prase.web.CsvParseWebService.parse(CsvParseWebService.java:48)
+	at com.dataframe.prase.web.CsvParseController.parse(CsvParseController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:165)
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132)
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:201)
+	at com.dataframe.prase.web.DfpControllerTest.performParse(DfpControllerTest.java:168)
+	at com.dataframe.prase.web.DfpControllerTest.shouldHideUnexpectedExceptionDetails(DfpControllerTest.java:157)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-08-06 16:21:22.178 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.178 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.178 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.198 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.198 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.198 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.216 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.216 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.216 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.220 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_NOT_FOUND
+2026-08-06 16:21:22.231 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.231 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.231 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.277 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.278 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.278 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.292 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.293 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.294 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.319 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.319 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.319 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.345 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.345 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.349 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 4 ms
+2026-08-06 16:21:22.352 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_INVALID
+2026-08-06 16:21:22.431 INFO  [main] c.d.p.web.HomePageIntegrationTest - Starting HomePageIntegrationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 24372 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:21:22.431 INFO  [main] c.d.p.web.HomePageIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:21:22.784 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:21:22.867 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:21:22.867 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:21:22.867 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:21:22.880 INFO  [main] c.d.p.web.HomePageIntegrationTest - Started HomePageIntegrationTest in 0.495 seconds (process running for 6.128)
+2026-08-06 16:23:06.708 INFO  [main] c.d.prase.DataFramePraseApplication - Starting DataFramePraseApplication v1.0.0-SNAPSHOT using Java 17.0.15 with PID 11164 (D:\IdeaProgram\DFP\3-server\dataFrame-prase\target\classes started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:23:06.712 INFO  [main] c.d.prase.DataFramePraseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:23:07.561 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-06 16:23:07.569 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-127.0.0.1-8080"]
+2026-08-06 16:23:07.570 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-06 16:23:07.570 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-08-06 16:23:07.611 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-06 16:23:07.611 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 864 ms
+2026-08-06 16:23:07.751 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:23:07.964 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-127.0.0.1-8080"]
+2026-08-06 16:23:07.981 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-08-06 16:23:07.986 INFO  [main] c.d.prase.DataFramePraseApplication - Started DataFramePraseApplication in 1.754 seconds (process running for 2.112)
+2026-08-06 16:23:08.072 WARN  [main] c.d.prase.startup.PortRetryLauncher - 当前运行环境不支持自动打开浏览器: url=http://127.0.0.1:8080/
+2026-08-06 16:23:20.403 INFO  [http-nio-127.0.0.1-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-06 16:23:20.403 INFO  [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-06 16:23:20.417 INFO  [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2026-08-06 16:24:01.078 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-06 16:24:01.080 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-08-06 16:24:03.097 INFO  [main] c.d.prase.DataFramePraseApplication - Starting DataFramePraseApplication v1.0.0-SNAPSHOT using Java 17.0.15 with PID 8316 (D:\IdeaProgram\DFP\3-server\dataFrame-prase\target\classes started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:24:03.101 INFO  [main] c.d.prase.DataFramePraseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:24:03.897 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-06 16:24:03.905 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-127.0.0.1-8080"]
+2026-08-06 16:24:03.907 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-06 16:24:03.907 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-08-06 16:24:03.954 INFO  [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-06 16:24:03.954 INFO  [main] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 816 ms
+2026-08-06 16:24:04.114 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:24:04.314 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-127.0.0.1-8080"]
+2026-08-06 16:24:04.329 INFO  [main] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-08-06 16:24:04.337 INFO  [main] c.d.prase.DataFramePraseApplication - Started DataFramePraseApplication in 1.933 seconds (process running for 2.236)
+2026-08-06 16:24:04.370 WARN  [main] c.d.prase.startup.PortRetryLauncher - 当前运行环境不支持自动打开浏览器: url=http://127.0.0.1:8080/
+2026-08-06 16:24:14.635 INFO  [http-nio-127.0.0.1-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-06 16:24:14.635 INFO  [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-06 16:24:14.635 INFO  [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:24:35.352 ERROR [http-nio-127.0.0.1-8080-exec-5] c.d.prase.web.GlobalExceptionHandler - 服务处理发生未预期异常
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-08-06 16:28:12.031 INFO  [http-nio-127.0.0.1-8080-exec-9] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=2026-08-02_01-26-27通道1停按第2下3帧数据(1).csv, configKey=remote-b04287, elapsedMs=1912
+2026-08-06 16:30:27.817 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-08-06 16:30:27.820 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-08-06 16:33:38.854 INFO  [main] c.d.p.DataFramePraseApplicationTest - Starting DataFramePraseApplicationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 29424 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:33:38.856 INFO  [main] c.d.p.DataFramePraseApplicationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:33:39.577 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:33:39.841 INFO  [main] c.d.p.DataFramePraseApplicationTest - Started DataFramePraseApplicationTest in 1.25 seconds (process running for 2.628)
+2026-08-06 16:33:42.605 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=示例.CSV, configKey=remote-1, elapsedMs=45
+2026-08-06 16:33:42.694 INFO  [main] c.d.prase.web.CsvParseWebService - CSV 解析成功: fileName=first.csv, configKey=remote-1, elapsedMs=45
+2026-08-06 16:33:42.730 WARN  [main] c.d.prase.web.CsvParseWebService - CSV 解析失败: fileName=invalid.csv, configKey=remote-1, elapsedMs=19, failureType=DfpException
+2026-08-06 16:33:43.006 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.006 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.006 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.242 ERROR [main] c.d.prase.web.GlobalExceptionHandler - 服务处理发生未预期异常
+java.lang.RuntimeException: 数据库密码等内部细节
+	at com.dataframe.prase.web.CsvParseWebService.parse(CsvParseWebService.java:46)
+	at com.dataframe.prase.web.CsvParseController.parse(CsvParseController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.service(TestDispatcherServlet.java:72)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.springframework.mock.web.MockFilterChain$ServletFilterProxy.doFilter(MockFilterChain.java:165)
+	at org.springframework.mock.web.MockFilterChain.doFilter(MockFilterChain.java:132)
+	at org.springframework.test.web.servlet.MockMvc.perform(MockMvc.java:201)
+	at com.dataframe.prase.web.DfpControllerTest.performParse(DfpControllerTest.java:168)
+	at com.dataframe.prase.web.DfpControllerTest.shouldHideUnexpectedExceptionDetails(DfpControllerTest.java:157)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:775)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:479)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:216)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:212)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:137)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:201)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:170)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:94)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:59)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:142)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2026-08-06 16:33:43.408 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.408 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.408 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.433 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.433 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.433 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.448 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.456 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.456 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.460 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_NOT_FOUND
+2026-08-06 16:33:43.473 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.473 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.473 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.581 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.582 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.582 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.620 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.620 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.621 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.660 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.660 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.660 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.703 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:43.703 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:43.703 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:43.703 WARN  [main] c.d.prase.web.GlobalExceptionHandler - 遥控器配置处理失败: code=CONFIG_INVALID
+2026-08-06 16:33:43.834 INFO  [main] c.d.p.web.HomePageIntegrationTest - Starting HomePageIntegrationTest v1.0.0-SNAPSHOT using Java 17.0.15 with PID 29424 (started by 14336 in D:\IdeaProgram\DFP\3-server\dataFrame-prase)
+2026-08-06 16:33:43.834 INFO  [main] c.d.p.web.HomePageIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-08-06 16:33:44.243 INFO  [main] o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-06 16:33:44.352 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-08-06 16:33:44.352 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-08-06 16:33:44.352 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-08-06 16:33:44.373 INFO  [main] c.d.p.web.HomePageIntegrationTest - Started HomePageIntegrationTest in 0.6 seconds (process running for 7.159)

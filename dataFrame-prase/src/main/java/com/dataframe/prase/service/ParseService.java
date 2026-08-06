@@ -1,19 +1,16 @@
 package com.dataframe.prase.service;
 
-import com.dataframe.prase.cli.CliOptions;
 import com.dataframe.prase.csv.CsvEdgeReader;
-import com.dataframe.prase.model.ActivitySegment;
-import com.dataframe.prase.model.BoundaryFragment;
-import com.dataframe.prase.model.EdgeRecord;
-import com.dataframe.prase.model.FrameResult;
-import com.dataframe.prase.model.LevelInterval;
-import com.dataframe.prase.model.ParseOutcome;
+import com.dataframe.prase.enums.DfpErrorCode;
+import com.dataframe.prase.exception.DfpException;
+import com.dataframe.prase.model.*;
 import com.dataframe.prase.protocol.FrameDecoder;
 import com.dataframe.prase.protocol.FrameDeduplicator;
 import com.dataframe.prase.protocol.FrameRules;
 import com.dataframe.prase.report.ExcelResultWriter;
 import com.dataframe.prase.signal.ActivitySegmenter;
 import com.dataframe.prase.signal.IntervalBuilder;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -23,9 +20,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public final class ParseService {
 
     private static final BigDecimal MILLISECONDS_PER_SECOND = new BigDecimal("1000");
+
 
     private final CsvEdgeReader csvEdgeReader = new CsvEdgeReader();
     private final IntervalBuilder intervalBuilder = new IntervalBuilder();
@@ -34,33 +33,45 @@ public final class ParseService {
     private final FrameDeduplicator frameDeduplicator = new FrameDeduplicator();
     private final ExcelResultWriter excelResultWriter = new ExcelResultWriter();
 
-    public ParseOutcome parse(CliOptions options) throws IOException {
+
+    public ParseOutcome parse(ParseOptions options) {
         Objects.requireNonNull(options, "options");
-        if (options.help()) {
-            throw new IllegalArgumentException("帮助参数不能执行 CSV 解析");
-        }
         if (options.input().toAbsolutePath().normalize()
                 .equals(options.output().toAbsolutePath().normalize())) {
             throw new IllegalArgumentException("输出文件不能与输入 CSV 相同");
         }
 
-        List<EdgeRecord> edges = csvEdgeReader.read(options.input(), options.charset());
-        List<LevelInterval> intervals = intervalBuilder.build(edges);
-        BigDecimal idleThresholdSeconds = options.idleThresholdMs()
-                .divide(MILLISECONDS_PER_SECOND);
-        List<ActivitySegment> segments = activitySegmenter
-                .segment(intervals, options.idleLevel(), idleThresholdSeconds)
-                .segments();
+        List<EdgeRecord> edges;
+        try {
+            edges = csvEdgeReader.read(options.input(), options.charset());
+        } catch (IOException | RuntimeException exception) {
+            throw new DfpException(DfpErrorCode.CSV_READ_FAILED, "CSV 文件读取失败", exception);
+        }
 
-        List<FrameResult> frameCandidates = frameDecoder.decodeEstimated(
-                edges, options.remoteId(), options.levelMapping());
-        List<FrameResult> frames = frameDeduplicator.deduplicateEstimated(frameCandidates);
-        List<BoundaryFragment> boundaryFragments = new ArrayList<>();
-        for (ActivitySegment segment : segments) {
-            List<FrameResult> relatedFrames = frames.stream()
-                    .filter(frame -> isFrameInSegment(frame, segment))
-                    .toList();
-            boundaryFragments.addAll(uncoveredFragments(segment, relatedFrames));
+        List<ActivitySegment> segments;
+        List<FrameResult> frames;
+        List<BoundaryFragment> boundaryFragments;
+        try {
+            List<LevelInterval> intervals = intervalBuilder.build(edges);
+            BigDecimal idleThresholdSeconds = options.idleThresholdMs()
+                    .divide(MILLISECONDS_PER_SECOND);
+            segments = activitySegmenter
+                    .segment(intervals, options.idleLevel(), idleThresholdSeconds)
+                    .segments();
+            List<FrameResult> frameCandidates = frameDecoder.decodeEstimated(
+                    edges, options.remoteId(), options.levelMapping());
+            frames = frameDeduplicator.deduplicateEstimated(frameCandidates);
+            boundaryFragments = new ArrayList<>();
+            for (ActivitySegment segment : segments) {
+                List<FrameResult> relatedFrames = frames.stream()
+                        .filter(frame -> isFrameInSegment(frame, segment))
+                        .toList();
+                boundaryFragments.addAll(uncoveredFragments(segment, relatedFrames));
+            }
+        } catch (DfpException exception) {
+            throw exception;
+        } catch (RuntimeException exception) {
+            throw new DfpException(DfpErrorCode.PROTOCOL_PARSE_FAILED, "协议解析失败", exception);
         }
         ParseOutcome outcome = new ParseOutcome(
                 options.input(),
@@ -73,8 +84,13 @@ public final class ParseService {
                 options.idleThresholdMs(),
                 options.idleLevel(),
                 options.levelMapping(),
+                options.inputDisplayName(),
                 LocalDateTime.now());
-        excelResultWriter.write(outcome);
+        try {
+            excelResultWriter.write(outcome);
+        } catch (IOException | RuntimeException exception) {
+            throw new DfpException(DfpErrorCode.EXCEL_GENERATION_FAILED, "Excel 生成失败", exception);
+        }
         return outcome;
     }
 

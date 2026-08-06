@@ -6,3 +6,6 @@
 /src/test/java
 
 *.iml
+*.doc
+*.jar
+

@@ -19,7 +19,24 @@ public record ParseOutcome(
         BigDecimal idleThresholdMs,
         int idleLevel,
         LevelMapping levelMapping,
+        String inputDisplayName,
         LocalDateTime processedAt) {
+
+    public ParseOutcome(
+            Path input,
+            Path output,
+            int edgeCount,
+            int segmentCount,
+            List<FrameResult> frames,
+            List<BoundaryFragment> boundaryFragments,
+            List<Integer> remoteId,
+            BigDecimal idleThresholdMs,
+            int idleLevel,
+            LevelMapping levelMapping,
+            LocalDateTime processedAt) {
+        this(input, output, edgeCount, segmentCount, frames, boundaryFragments, remoteId,
+                idleThresholdMs, idleLevel, levelMapping, input.getFileName().toString(), processedAt);
+    }
 
     public ParseOutcome {
         Objects.requireNonNull(input, "input");
@@ -29,7 +46,11 @@ public record ParseOutcome(
         Objects.requireNonNull(remoteId, "remoteId");
         Objects.requireNonNull(idleThresholdMs, "idleThresholdMs");
         Objects.requireNonNull(levelMapping, "levelMapping");
+        Objects.requireNonNull(inputDisplayName, "inputDisplayName");
         Objects.requireNonNull(processedAt, "processedAt");
+        if (inputDisplayName.isBlank()) {
+            throw new IllegalArgumentException("输入文件名不能为空");
+        }
         if (edgeCount < 0 || segmentCount < 0) {
             throw new IllegalArgumentException("边沿数和候选区段数不能为负数");
         }
@@ -42,6 +63,7 @@ public record ParseOutcome(
         frames = List.copyOf(frames);
         boundaryFragments = List.copyOf(boundaryFragments);
         remoteId = List.copyOf(remoteId);
+        inputDisplayName = inputDisplayName.trim();
     }
 
     @Deprecated
@@ -59,6 +81,27 @@ public record ParseOutcome(
             int idleLevel,
             LevelMapping levelMapping,
             LocalDateTime processedAt) {
+        this(input, output, edgeCount, segmentCount, frames, boundaryFragments, remoteId,
+                ignoredBitPeriodUs, ignoredPhaseStepUs, idleThresholdMs, idleLevel,
+                levelMapping, input.getFileName().toString(), processedAt);
+    }
+
+    @Deprecated
+    public ParseOutcome(
+            Path input,
+            Path output,
+            int edgeCount,
+            int segmentCount,
+            List<FrameResult> frames,
+            List<BoundaryFragment> boundaryFragments,
+            List<Integer> remoteId,
+            BigDecimal ignoredBitPeriodUs,
+            BigDecimal ignoredPhaseStepUs,
+            BigDecimal idleThresholdMs,
+            int idleLevel,
+            LevelMapping levelMapping,
+            String inputDisplayName,
+            LocalDateTime processedAt) {
         this(
                 input,
                 output,
@@ -70,6 +113,7 @@ public record ParseOutcome(
                 idleThresholdMs,
                 idleLevel,
                 levelMapping,
+                inputDisplayName,
                 processedAt);
         Objects.requireNonNull(ignoredBitPeriodUs, "ignoredBitPeriodUs");
         Objects.requireNonNull(ignoredPhaseStepUs, "ignoredPhaseStepUs");

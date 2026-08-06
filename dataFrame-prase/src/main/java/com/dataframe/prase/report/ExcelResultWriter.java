@@ -171,7 +171,7 @@ public final class ExcelResultWriter {
     private void writeSummarySheet(Workbook workbook, ParseOutcome outcome, Styles styles) {
         Sheet sheet = workbook.createSheet("处理摘要");
         int rowIndex = 0;
-        rowIndex = summaryRow(sheet, rowIndex, "输入文件", outcome.input().toString(), styles);
+        rowIndex = summaryRow(sheet, rowIndex, "输入文件", outcome.inputDisplayName(), styles);
         rowIndex = summaryRow(sheet, rowIndex, "读取边沿数量", outcome.edgeCount(), styles);
         rowIndex = summaryRow(sheet, rowIndex, "候选区段数量", outcome.segmentCount(), styles);
         rowIndex = summaryRow(sheet, rowIndex, "有效帧数量", outcome.validFrameCount(), styles);
