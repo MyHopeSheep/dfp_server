@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "remoteConfigs": [
+    {
+      "key": "remote-b04287",
+      "name": "NRZ-L 类遥控器（B0 42 87）",
+      "remoteId": "B0 42 87",
+      "charset": "GBK",
+      "idleThresholdMs": 40,
+      "idleLevel": 0,
+      "levelMapping": "inverted",
+      "protocolRuleKey": "nrzlDefault"
+    }
+  ],
+  "protocolRuleSets": [
+    {
+      "key": "nrzlDefault",
+      "name": "NRZ-L 104 位帧规则",
+      "timing": {
+        "nominalBitPeriodUs": 416,
+        "prefilterToleranceRatio": 0.20,
+        "minValidPulseCount": 5,
+        "maxInitialFitPulseCount": 16,
+        "maxFitResidualRatio": 0.15,
+        "tailEdgeToleranceRatio": 0.35,
+        "phaseCount": 16,
+        "dedupToleranceRatio": 0.50
+      },
+      "frame": {
+        "syncMarkerHex": "AA 2D D4",
+        "formalHeaderHex": "2D D4",
+        "formalFrameBits": 104,
+        "remoteIdByteOffset": 6,
+        "commandByteOffset": 10,
+        "tailByteOffset": 11,
+        "tailHex": "AA AA"
+      },
+      "commands": [
+        { "code": "01", "channel": "通道1", "action": "停" },
+        { "code": "02", "channel": "通道1", "action": "上" },
+        { "code": "04", "channel": "通道1", "action": "下" },
+        { "code": "21", "channel": "通道2", "action": "停" },
+        { "code": "22", "channel": "通道2", "action": "上" },
+        { "code": "24", "channel": "通道2", "action": "下" },
+        { "code": "41", "channel": "通道3", "action": "停" },
+        { "code": "42", "channel": "通道3", "action": "上" },
+        { "code": "44", "channel": "通道3", "action": "下" },
+        { "code": "61", "channel": "通道4", "action": "停" },
+        { "code": "62", "channel": "通道4", "action": "上" },
+        { "code": "63", "channel": "通道4", "action": "下+停" },
+        { "code": "64", "channel": "通道4", "action": "下" },
+        { "code": "66", "channel": "通道4", "action": "停长按 15 秒" },
+        { "code": "67", "channel": "通道4", "action": "停长按 5 秒" },
+        { "code": "68", "channel": "通道4", "action": "上+停" }
+      ]
+    }
+  ]
+}

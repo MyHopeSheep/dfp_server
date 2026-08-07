@@ -11,50 +11,87 @@
 <body>
 <main class="page-shell">
     <header class="page-header">
-        <h1>DFP 解析工具</h1>
-        <p aria-live="polite" class="service-status service-status--checking" id="service-status">正在检查服务状态…</p>
+        <div>
+            <h1>DFP 解析工具</h1>
+            <p aria-live="polite" class="service-status service-status--checking" id="service-status">正在检查服务状态…</p>
+        </div>
+        <button class="button button--secondary" data-open-config type="button">配置管理</button>
     </header>
 
-    <section aria-labelledby="config-step-title" class="step-card">
-        <div class="step-card__heading">
-            <span class="step-mark" id="config-step-mark">①</span>
-            <div>
-                <h2 id="config-step-title">选择遥控器配置</h2>
-                <p class="step-summary" id="config-summary">请选择本次 CSV 解析使用的遥控器配置。</p>
+    <nav aria-label="功能页签" class="tabs" role="tablist">
+        <button aria-controls="parse-panel" aria-selected="true" class="tab tab--active" data-tab="parse" role="tab" type="button">解析任务</button>
+        <button aria-controls="remote-panel" aria-selected="false" class="tab" data-tab="remote" role="tab" type="button">遥控器参数</button>
+        <button aria-controls="protocol-panel" aria-selected="false" class="tab" data-tab="protocol" role="tab" type="button">协议算法规则</button>
+    </nav>
+
+    <div class="config-toolbar" hidden id="config-toolbar">
+        <span class="readonly-badge">只读</span>
+        <label class="field-code-toggle" for="show-field-codes">
+            <input id="show-field-codes" type="checkbox">
+            显示字段代码
+        </label>
+        <button class="button button--secondary" data-refresh-configs type="button">刷新配置</button>
+    </div>
+
+    <section aria-labelledby="parse-tab" class="tab-panel" id="parse-panel" role="tabpanel">
+        <section aria-labelledby="config-step-title" class="step-card">
+            <div class="step-card__heading">
+                <span class="step-mark" id="config-step-mark">①</span>
+                <div>
+                    <h2 id="config-step-title">选择遥控器配置</h2>
+                    <p class="step-summary" id="config-summary">请选择本次 CSV 解析使用的遥控器配置。</p>
+                </div>
             </div>
-        </div>
-        <div class="step-card__controls">
-            <label class="sr-only" for="config-key">遥控器配置</label>
-            <select disabled id="config-key" name="configKey">
-                <option value="">正在读取配置…</option>
-            </select>
-            <button class="button button--secondary" id="refresh-configs" type="button">刷新配置</button>
-        </div>
+            <div class="step-card__controls">
+                <label class="sr-only" for="config-key">遥控器配置</label>
+                <select disabled id="config-key" name="configKey">
+                    <option value="">正在读取配置…</option>
+                </select>
+                <button class="button button--secondary" data-refresh-configs type="button">刷新配置</button>
+            </div>
+            <dl class="selected-profile" hidden id="selected-profile"></dl>
+        </section>
+
+        <section aria-labelledby="file-step-title" class="step-card">
+            <div class="step-card__heading">
+                <span class="step-mark" id="file-step-mark">②</span>
+                <div>
+                    <h2 id="file-step-title">选择待解析 CSV</h2>
+                    <p class="step-summary" id="file-summary">仅支持 CSV 文件，单个文件最大 20MB。</p>
+                </div>
+            </div>
+            <div class="step-card__controls">
+                <label class="button button--secondary button--file" for="csv-file">选择 CSV 文件</label>
+                <input accept=".csv,text/csv" id="csv-file" name="file" type="file">
+            </div>
+        </section>
+
+        <section aria-labelledby="parse-step-title" class="step-card step-card--action">
+            <div class="step-card__heading">
+                <span class="step-mark">③</span>
+                <div>
+                    <h2 id="parse-step-title">解析并下载 Excel</h2>
+                    <p class="step-summary" id="parse-summary">请先选择配置和 CSV 文件。</p>
+                </div>
+            </div>
+            <button class="button button--primary" disabled id="parse-button" type="button">请先选择配置和 CSV 文件</button>
+        </section>
     </section>
 
-    <section aria-labelledby="file-step-title" class="step-card">
-        <div class="step-card__heading">
-            <span class="step-mark" id="file-step-mark">②</span>
-            <div>
-                <h2 id="file-step-title">选择待解析 CSV</h2>
-                <p class="step-summary" id="file-summary">仅支持 CSV 文件，单个文件最大 20MB。</p>
-            </div>
-        </div>
-        <div class="step-card__controls">
-            <label class="button button--secondary button--file" for="csv-file">选择 CSV 文件</label>
-            <input accept=".csv,text/csv" id="csv-file" name="file" type="file">
-        </div>
+    <section class="tab-panel" hidden id="remote-panel" role="tabpanel">
+        <header class="panel-heading">
+            <h2>遥控器参数</h2>
+            <p>当前解析可用的遥控器配置。</p>
+        </header>
+        <div id="remote-settings"></div>
     </section>
 
-    <section aria-labelledby="parse-step-title" class="step-card step-card--action">
-        <div class="step-card__heading">
-            <span class="step-mark">③</span>
-            <div>
-                <h2 id="parse-step-title">解析并下载 Excel</h2>
-                <p class="step-summary" id="parse-summary">请先选择配置和 CSV 文件。</p>
-            </div>
-        </div>
-        <button class="button button--primary" disabled id="parse-button" type="button">请先选择配置和 CSV 文件</button>
+    <section class="tab-panel" hidden id="protocol-panel" role="tabpanel">
+        <header class="panel-heading">
+            <h2>协议算法规则</h2>
+            <p>按解析步骤查看当前时序判定、帧结构与命令映射。</p>
+        </header>
+        <div id="protocol-settings"></div>
     </section>
 
     <p aria-live="polite" class="feedback" hidden id="feedback" role="status"></p>
