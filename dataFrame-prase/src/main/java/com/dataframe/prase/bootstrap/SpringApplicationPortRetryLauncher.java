@@ -70,19 +70,25 @@ public final class SpringApplicationPortRetryLauncher {
 
     private static void openHomePageInDefaultBrowser(URI homePage) {
         try {
-            if (!Desktop.isDesktopSupported()) {
-                log.warn("当前运行环境不支持自动打开浏览器: url={}", homePage);
+            if (openHomePageWithDesktop(homePage)) {
                 return;
             }
-            Desktop desktop = Desktop.getDesktop();
-            if (!desktop.isSupported(Desktop.Action.BROWSE)) {
-                log.warn("当前运行环境不支持浏览器打开操作: url={}", homePage);
-                return;
-            }
-            desktop.browse(homePage);
+            new ProcessBuilder("explorer.exe", homePage.toString()).start();
         } catch (IOException | RuntimeException exception) {
             log.warn("服务已启动，但无法自动打开首页: url={}", homePage, exception);
         }
+    }
+
+    private static boolean openHomePageWithDesktop(URI homePage) throws IOException {
+        if (!Desktop.isDesktopSupported()) {
+            return false;
+        }
+        Desktop desktop = Desktop.getDesktop();
+        if (!desktop.isSupported(Desktop.Action.BROWSE)) {
+            return false;
+        }
+        desktop.browse(homePage);
+        return true;
     }
 
     private boolean isPortInUse(Throwable throwable) {
